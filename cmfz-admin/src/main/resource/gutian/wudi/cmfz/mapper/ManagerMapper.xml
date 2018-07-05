@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="gutian.wudi.cmfz.dao.ManagerDao">
+     <resultMap type="Manager" id="ManagerResaultMap">
+		<id property="mgrId" column="mgr_id"/>
+		<result property="mgrName" column="mgr_name"/>
+		<result property="mgrPwd" column="mgr_pwd"/>
+         <result property="mgrSolt" column="mgr_solt"/>
+         <result property="mgrStatus" column="mgr_status"/>
+		
+	</resultMap>
+	<!--<insert id="insertManager">-->
+     <!--insert into t_manager values(#{managerId},#{managername},#{password})-->
+    <!--</insert>-->
+    <select id="findManagerByName" resultMap="ManagerResaultMap" >
+    select * from t_manager where mgr_name=#{0}
+    </select>
+</mapper>
