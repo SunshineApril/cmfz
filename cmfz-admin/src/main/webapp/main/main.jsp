@@ -11,16 +11,18 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/datagrid-detailview.js"></script>
 <script type="text/javascript">
-	function addTabs(menuName){
+	function addTabs(menuName,menuUrl){
 		var b=$("#tt").tabs("exists",menuName);
-		
+		console.log(menuUrl);
 		if (b){
 			$("#tt").tabs("select",menuName);
 		} else {
 			$("#tt").tabs("add",{
 			    title:menuName,
                 closable:true,
+				href:"${pageContext.request.contextPath}/picture.jsp",
 			});
 		}
 	}
@@ -39,7 +41,7 @@
 
 					$.each(obj.childMenu,function (index1,obj1) {
 
-					    content +="<p style=\"text-align: center\"><a class=\"easyui-linkbutton\" data-options=\"iconCls:'"+obj1.menoIcon+"',plain:true\" onclick=\"addTabs('"+obj1.menuName+"')\">"+obj1.menuName+"</a></p>"
+					    content +="<p style=\"text-align: center\"><a class=\"easyui-linkbutton\" data-options=\"iconCls:'"+obj1.menoIcon+"',plain:true\" onclick=\"addTabs('"+obj1.menuName+"','"+obj1.menuUrl+"')\">"+obj1.menuName+"</a></p>"
                     })
 
 					$("#aa").accordion("add",{

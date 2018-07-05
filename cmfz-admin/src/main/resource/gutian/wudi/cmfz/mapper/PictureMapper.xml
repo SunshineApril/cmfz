@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="gutian.wudi.cmfz.dao.PictureDao">
+     <resultMap type="Picture" id="PictureResaultMap">
+		<id property="pictureId" column="picture_id"/>
+		<result property="picturePath" column="picture_path"/>
+		<result property="pictureDate" column="picture_date"/>
+         <result property="pictureDescription" column="picture_description"/>
+         <result property="status" column="picture_status"/>
+	</resultMap>
+
+    <select id="findAllPicture" resultMap="PictureResaultMap" >
+        select * from t_picture limit #{begMes},#{endMes}
+    </select>
+
+    <select id="getTotalPic" resultType="int">
+        select count(*) from t_picture
+    </select>
+
+</mapper>

@@ -3,13 +3,16 @@ package gutian.wudi.cmfz.controller;
 import com.alibaba.fastjson.JSON;
 import gutian.wudi.cmfz.entity.Manager;
 import gutian.wudi.cmfz.entity.Menu;
+import gutian.wudi.cmfz.entity.Picture;
 import gutian.wudi.cmfz.service.ManagerService;
 import gutian.wudi.cmfz.service.MenuService;
+import gutian.wudi.cmfz.service.PictureService;
 import gutian.wudi.cmfz.utils.NewValidateCodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
@@ -20,6 +23,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/mgr")
@@ -28,7 +32,8 @@ public class ManagerController {
     private ManagerService ms;
     @Autowired
     private MenuService mes;
-
+    @Autowired
+    private PictureService ps;
     @RequestMapping("/loginAction_Manager")
     public String loginAction(Manager m, Model mo, String vcode, HttpSession session,HttpServletResponse response,HttpServletRequest request){
         String code = (String)session.getAttribute("vcode");
@@ -81,6 +86,17 @@ public class ManagerController {
         //return "forward:/main/main.jsp";\
 
         return menus;
+
+    }
+
+    @RequestMapping(value = "/pic")
+    @ResponseBody
+    public Map<String, Object> getPicture(@RequestParam("page")Integer page, @RequestParam("rows")Integer single)throws Exception{
+        Map<String, Object> stringObjectMap = ps.queryAllPicture(page, single);
+        //request.setAttribute("menus",menus);
+        //return "forward:/main/main.jsp";\
+
+        return stringObjectMap;
 
     }
 
