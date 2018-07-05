@@ -1,5 +1,6 @@
 package gutian.wudi.cmfz.controller;
 
+import com.alibaba.fastjson.JSON;
 import gutian.wudi.cmfz.entity.Manager;
 import gutian.wudi.cmfz.entity.Menu;
 import gutian.wudi.cmfz.service.ManagerService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +53,7 @@ public class ManagerController {
                 Cookie c1 = new Cookie("cookieName",encode);
                 c1.setPath(request.getContextPath());
                 response.addCookie(c1);
-                return "redirect:/mgr/menu";
+                return "main/main";
             }
         }
         return null;
@@ -72,10 +74,14 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/menu")
-    public String getMenu(HttpServletRequest request){
+    @ResponseBody
+    public List<Menu> getMenu(HttpServletRequest request){
         List<Menu> menus = mes.querryMenu();
-        request.setAttribute("menus",menus);
-        return "forward:/main/main.jsp";
+        //request.setAttribute("menus",menus);
+        //return "forward:/main/main.jsp";\
+
+        return menus;
+
     }
 
 }

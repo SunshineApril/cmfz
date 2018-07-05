@@ -24,8 +24,15 @@
      <!--insert into t_manager values(#{managerId},#{managername},#{password})-->
     <!--</insert>-->
     <select id="findAllMenu" resultMap="MenuResaultMap" >
-        select m1.*,m2.menu_id as child_id,m2.menu_name as child_name,m2.menu_code as child_code,m2.menu_icon as child_icon,
-        m2.menu_url as child_url,m2.menu_level as child_level,m2.menu_parent_id as child_parentid
-        from t_menu m1 LEFT JOIN t_menu m2 ON m1.menu_id=m2.menu_parent_id where m1.menu_level=1
+        select
+        m1.*,
+        m2.menu_id as child_id,m2.menu_name as child_name,
+        m2.menu_code as child_code,m2.menu_icon as child_icon,
+        m2.menu_url as child_url,m2.menu_level as child_level,
+        m2.menu_parent_id as child_parentid
+        from
+        t_menu m1 LEFT JOIN t_menu m2
+        ON m1.menu_id=m2.menu_parent_id
+        where m1.menu_level=1
     </select>
 </mapper>

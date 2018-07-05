@@ -12,11 +12,56 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript">
+	function addTabs(menuName){
+		var b=$("#tt").tabs("exists",menuName);
+		
+		if (b){
+			$("#tt").tabs("select",menuName);
+		} else {
+			$("#tt").tabs("add",{
+			    title:menuName,
+                closable:true,
+			});
+		}
+	}
     $(function () {
+        $.ajax({
+			url:"${pageContext.request.contextPath}/mgr/menu",
+			dataType:"json",
+			success:function (res) {
+				console.log(res)
+				//遍历响应集合
+				//res遍历的集合 index当前遍历的集合 遍历的临时变量
+				 $.each(res,function (index,obj) {
+				 	console.log(obj);
+
+					var content="";
+
+					$.each(obj.childMenu,function (index1,obj1) {
+
+					    content +="<p style=\"text-align: center\"><a class=\"easyui-linkbutton\" data-options=\"iconCls:'"+obj1.menoIcon+"',plain:true\" onclick=\"addTabs('"+obj1.menuName+"')\">"+obj1.menuName+"</a></p>"
+                    })
+
+					$("#aa").accordion("add",{
+					    title:obj.menuName,
+						iconCls:obj.menoIcon,
+						content:content,
+					})
+                 });
+            }
+		});
         $('#aa').accordion({
             animate:false
 
         });
+        // $.post("/mgr/menu",function(menuList){
+        //     // $("#cities").empty().append("<option value='-1'>请选择</option>");
+        //     //var data JSON.parse(menuList);
+			// console.log(data);
+        //     // for(var key in cityMap){
+        //     //     $("#cities").append("<option value='"+key+"'>"+cityMap[key]+"</option>");
+        //     // }
+        // });
     });
 </script>
 
@@ -44,7 +89,7 @@
     </div>   
     <div data-options="region:'center'">
     	<div id="tt" class="easyui-tabs" data-options="fit:true,narrow:true,pill:true">   
-		    <div title="主页" data-options="iconCls:'icon-neighbourhood',"  style="background-image:url(image/shouye.jpg);background-repeat: no-repeat;background-size:100% 100%;"></div>
+		    <div title="主页" data-options="iconCls:'icon-neighbourhood',"  style="background-image:url(${pageContext.request.contextPath}/main/image/shouye.jpg);background-repeat: no-repeat;background-size:100% 100%;"></div>
 		</div>  
     </div>   
 </body> 
