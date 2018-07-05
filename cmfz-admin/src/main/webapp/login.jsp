@@ -35,7 +35,7 @@
         function run(){
             var str="${cookie.cookieName.value}";
             var strnew =decodeURI(str,"utf-8");
-            alert(strnew);
+
             document.getElementById("nam").value=strnew;
 
         }

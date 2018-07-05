@@ -1,7 +1,9 @@
 package gutian.wudi.cmfz.controller;
 
 import gutian.wudi.cmfz.entity.Manager;
+import gutian.wudi.cmfz.entity.Menu;
 import gutian.wudi.cmfz.service.ManagerService;
+import gutian.wudi.cmfz.service.MenuService;
 import gutian.wudi.cmfz.utils.NewValidateCodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,12 +17,16 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
 
 @Controller
 @RequestMapping("/mgr")
 public class ManagerController {
     @Autowired
     private ManagerService ms;
+    @Autowired
+    private MenuService mes;
+
     @RequestMapping("/loginAction_Manager")
     public String loginAction(Manager m, Model mo, String vcode, HttpSession session,HttpServletResponse response,HttpServletRequest request){
         String code = (String)session.getAttribute("vcode");
@@ -45,7 +51,7 @@ public class ManagerController {
                 Cookie c1 = new Cookie("cookieName",encode);
                 c1.setPath(request.getContextPath());
                 response.addCookie(c1);
-                return "redirect:/manager/showAllUserAction_Manager";
+                return "redirect:/mgr/menu";
             }
         }
         return null;
@@ -64,4 +70,12 @@ public class ManagerController {
         newValidateCodeUtils.write(response.getOutputStream());
         return null;
     }
+
+    @RequestMapping(value = "/menu")
+    public String getMenu(HttpServletRequest request){
+        List<Menu> menus = mes.querryMenu();
+        request.setAttribute("menus",menus);
+        return "forward:/main/main.jsp";
+    }
+
 }

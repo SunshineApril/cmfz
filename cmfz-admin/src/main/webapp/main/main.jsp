@@ -1,17 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+	pageEncoding="utf-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>持名法州主页</title>
-<link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">   
-<link rel="stylesheet" type="text/css" href="../themes/IconExtension.css">   
-<script type="text/javascript" src="../js/jquery.min.js"></script>   
-<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>  
-<script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/IconExtension.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript">
-	
+    $(function () {
+        $('#aa').accordion({
+            animate:false
+
+        });
+    });
 </script>
 
 </head>
@@ -26,7 +32,14 @@
        
     <div data-options="region:'west',title:'导航菜单',split:true" style="width:220px;">
     	<div id="aa" class="easyui-accordion" data-options="fit:true">
-    		
+			<%--<c:forEach items="${requestScope.menus}" var="menu">
+				<div title="${menu.menuName}" data-options="iconCls:'${menu.menoIcon}'">
+					<c:forEach items="${menu.childMenu}" var="child">
+						<a class="easyui-linkbutton"
+						   data-options="plain:true,iconCls:'${child.menoIcon}'" style="width: 100%;">${child.menuName}</a>
+					</c:forEach>
+				</div>
+			</c:forEach>--%>
 		</div>  
     </div>   
     <div data-options="region:'center'">
