@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="gutian.wudi.cmfz.dao.MasterDao">
+    <resultMap type="Master" id="MasterResaultMap">
+        <id property="masterId" column="master_id"/>
+        <result property="masterName" column="master_name"/>
+        <result property="masterPhoto" column="master_photo"/>
+        <result property="masterSummary" column="masterr_summary"/>
+    </resultMap>
+
+    <!--<select id="findAllPicture" resultMap="PictureResaultMap" >-->
+        <!--select * from t_picture limit #{begMes},#{endMes}-->
+    <!--</select>-->
+
+    <!--<select id="getTotalPic" resultType="int">-->
+        <!--select count(*) from t_picture-->
+    <!--</select>-->
+    <!--<insert id="insertPic">-->
+        <!--insert into-->
+        <!--t_picture-->
+        <!--values(#{pictureId},#{picturePath},#{pictureDate},#{pictureDescription},#{status})-->
+    <!--</insert>-->
+
+    <!--<update id="updatePic">-->
+        <!--update t_picture set picture_description =#{pictureDescription},picture_status-->
+        <!--=#{status} where picture_id-->
+        <!--=#{pictureId}-->
+    <!--</update>-->
+
+</mapper>
+

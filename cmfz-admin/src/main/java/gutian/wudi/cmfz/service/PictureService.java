@@ -13,4 +13,8 @@ import java.util.Map;
  **/
 public interface PictureService {
     public Map<String,Object> queryAllPicture(int page, int single);
+
+    int addPic(Picture p);
+
+    int modifyPic(Picture p);
 }

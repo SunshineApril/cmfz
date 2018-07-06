@@ -40,7 +40,7 @@
                     toolbar:"#tb",
                     detailFormatter: function(rowIndex, rowData){
                         return '<table><tr>' +
-                            '<td rowspan=2 style="border:0"><img src="images/' + rowData.itemid + '.png" style="height:50px;"></td>' +
+                            '<td rowspan=2 style="border:0"><img src="${pageContext.request.contextPath}/upload/' + rowData.picturePath + '" style="height:50px;"></td>' +
                             // '<td style="border:0">' +
                             // '<p>Attribute: ' + rowData. + '</p>' +
                             // '<p>Status: ' + rowData.status + '</p>' +
@@ -54,9 +54,10 @@
 <table id="tt2">
     <%--<td><h1>轮播</h1></td>--%>
 </table>
+<form id="form" enctype="multipart/form-data" method="post"></form>
 <div id="tb" style="display: none">
     <a class="easyui-linkbutton"
-       data-options="iconCls:'icon-edit',plain:true,text:'修改',onClick: function(){
+       data-options="iconCls:'icon-help',plain:true,text:'帮助',onClick: function(){
 				var rowData = $('#dg').datagrid('getSelected');
 				console.log(rowData);
 				$('#form').dialog({
@@ -71,7 +72,7 @@
 
 				}"></a>
     <a class="easyui-linkbutton"
-       data-options="iconCls:'icon-add',plain:true,text:'新增',onClick: function(){
+       data-options="iconCls:'icon-add',plain:true,text:'新增轮播图',onClick: function(){
 					$('#form').dialog({
 					    title:'新增轮播图',
 					    width:600,
@@ -100,6 +101,21 @@
 				} else {
 					$.messager.alert('提示','删除失败！');
 				}
+
+				}"></a>
+    <a class="easyui-linkbutton"
+       data-options="iconCls:'icon-edit',plain:true,text:'修改',onClick: function(){
+				var rowData = $('#tt2').datagrid('getSelected');
+				console.log(rowData);
+				$('#form').dialog({
+					    title:'修改',
+					    width:600,
+					    height:300,
+					    href: '${pageContext.request.contextPath}/form1.jsp',
+					    onLoad:function(){
+							$('#ff4').form('load',rowData); //在加载表单时将行数据加载到表单元素中
+						}
+					});
 
 				}"></a>
 </div>

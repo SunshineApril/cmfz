@@ -15,4 +15,8 @@ public interface PictureDao {
     public List<Picture> findAllPicture(@Param("begMes") int begMes, @Param("endMes") int endMes);
 
     int getTotalPic();
+
+    int insertPic(Picture pic);
+
+    int updatePic(Picture pic);
 }

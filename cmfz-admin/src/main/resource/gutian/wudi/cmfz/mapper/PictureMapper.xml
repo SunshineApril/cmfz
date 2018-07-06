@@ -16,5 +16,16 @@
     <select id="getTotalPic" resultType="int">
         select count(*) from t_picture
     </select>
+    <insert id="insertPic">
+    insert into
+        t_picture
+        values(#{pictureId},#{picturePath},#{pictureDate},#{pictureDescription},#{status})
+    </insert>
+
+    <update id="updatePic">
+        update t_picture set picture_description =#{pictureDescription},picture_status
+        =#{status} where picture_id
+        =#{pictureId}
+    </update>
 
 </mapper>

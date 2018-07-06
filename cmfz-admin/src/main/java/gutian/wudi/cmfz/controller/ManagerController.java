@@ -14,16 +14,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/mgr")
@@ -82,10 +87,32 @@ public class ManagerController {
     @ResponseBody
     public List<Menu> getMenu(HttpServletRequest request){
         List<Menu> menus = mes.querryMenu();
+
+
         //request.setAttribute("menus",menus);
         //return "forward:/main/main.jsp";\
 
         return menus;
+
+    }
+
+    @RequestMapping(value = "/updatePic")
+    @ResponseBody
+    public int updatePic(String pictureId,String pictureDescription,String status){
+        Picture picture = new Picture();
+        picture.setPictureId(pictureId);
+        picture.setPictureDescription(pictureDescription);
+        picture.setStatus(status);
+
+        System.out.println(picture);
+        int i = ps.modifyPic(picture);
+
+
+
+        //request.setAttribute("menus",menus);
+        //return "forward:/main/main.jsp";\
+
+        return 1;
 
     }
 
@@ -100,4 +127,55 @@ public class ManagerController {
 
     }
 
+//    @RequestMapping("/addPic")
+//    public @ResponseBody void addPicture(MultipartFile newPicture, String pictureMessage, String pictureStatus, MultipartHttpServletRequest request) throws IOException {
+//        System.out.println("JINru");
+//        String realPath=request.getRealPath("/");
+//        int lastIndexOf = realPath.lastIndexOf("\\");
+//        String substring = realPath.substring(lastIndexOf);
+//        String uploadPath = substring + "\\upload";
+//        newPicture.transferTo(new File(uploadPath));
+//
+//
+////        Picture picture=new Picture();
+////        picture.setPictureName(newPicture.getOriginalFilename());
+////        picture.setPictureMessage(pictureMessage);
+////        picture.setPictureStatus(pictureStatus);
+////        picture.setPictureDate(new Date());
+////
+////        pictureService.addPicture(picture);
+//    }
+
+    @RequestMapping("/addPic")
+    @ResponseBody
+    public String addPic(MultipartFile myFile , HttpSession session,String des,String dept) throws IOException {
+        Picture picture=new Picture();
+        System.out.println("展示状态"+dept);
+        System.out.println("描述"+des);
+        picture.setPictureDescription(des);
+        picture.setStatus(dept);
+        picture.setPictureDate(new Date());
+        //1.获得文件夹名称
+        String realPath = session.getServletContext().getRealPath("/");
+        String upload = realPath.replace("cmfz-admin", "upload");
+        System.out.println("路径"+upload);
+
+//
+//        //2.生成UUID的唯一文件名
+        String uuidName = UUID.randomUUID().toString().replace("-", "");
+        picture.setPictureId(uuidName);
+//
+//        //3.截取文件本身的后缀名
+        String oldName = myFile.getOriginalFilename();
+        System.out.println("mingcheng"+oldName);
+        picture.setPicturePath(oldName);
+        int i = ps.addPic(picture);
+        myFile.transferTo(new File(upload+oldName));
+//
+//        String suffix = oldName.substring( oldName.lastIndexOf(".") );
+//
+//        myFile.transferTo(new File( realPath +"/"+ uuidName + suffix ));
+
+        return "i";
+    }
 }

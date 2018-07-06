@@ -36,4 +36,20 @@ public class PictureServiceImpl implements PictureService {
         mapPic.put("rows", allPicture);
         return mapPic;
     }
+
+    @Transactional(propagation=Propagation.REQUIRED)
+    @Override
+    public int addPic(Picture p) {
+        return pd.insertPic(p);
+    }
+
+    @Transactional(propagation=Propagation.REQUIRED)
+    @Override
+    public int modifyPic(Picture p) {
+        int i = pd.updatePic(p);
+        return i;
+    }
+
+
+
 }
