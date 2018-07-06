@@ -22,7 +22,7 @@
 			$("#tt").tabs("add",{
 			    title:menuName,
                 closable:true,
-				href:"${pageContext.request.contextPath}/picture.jsp",
+				href:"${pageContext.request.contextPath}"+menuUrl,
 			});
 		}
 	}

@@ -8,24 +8,33 @@
         <result property="masterSummary" column="masterr_summary"/>
     </resultMap>
 
-    <!--<select id="findAllPicture" resultMap="PictureResaultMap" >-->
-        <!--select * from t_picture limit #{begMes},#{endMes}-->
-    <!--</select>-->
+    <select id="findAllMaster" resultMap="MasterResaultMap" >
+        select * from t_master limit #{begMes},#{endMes}
+    </select>
 
-    <!--<select id="getTotalPic" resultType="int">-->
-        <!--select count(*) from t_picture-->
-    <!--</select>-->
-    <!--<insert id="insertPic">-->
-        <!--insert into-->
-        <!--t_picture-->
-        <!--values(#{pictureId},#{picturePath},#{pictureDate},#{pictureDescription},#{status})-->
-    <!--</insert>-->
+    <select id="getTotalMas" resultType="int">
+        select count(*) from t_Master
+    </select>
+    <select id="selectMas" resultMap="MasterResaultMap" >
+        select * from t_master  where ${name} like CONCAT('%',#{value},'%')
+        limit #{begin},#{end}
+    </select>
+    <select id="getTotalMast" resultType="int">
+        select count(*) from t_master where ${name} like CONCAT('%',#{value},'%')
+    </select>
+    <insert id="insertMas">
+        insert into
+        t_master
+        values(#{masterId},#{masterName},#{masterPhoto},#{masterSummary})
+    </insert>
 
-    <!--<update id="updatePic">-->
-        <!--update t_picture set picture_description =#{pictureDescription},picture_status-->
-        <!--=#{status} where picture_id-->
-        <!--=#{pictureId}-->
-    <!--</update>-->
+    <update id="updateMas">
+        update
+        t_master
+        set master_photo =#{masterPhoto},masterr_summary
+        =#{masterSummary} where master_id
+        =#{masterId}
+    </update>
 
 </mapper>
 
