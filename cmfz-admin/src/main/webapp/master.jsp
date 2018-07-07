@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" isELIgnored="false" %>
 <script type="text/javascript">
 
     $(function() {
@@ -6,7 +6,7 @@
             url : 'http://localhost:8484/cmfz-admin/master/getMas',
             columns : [ [ {
                 field : "masterId",
-                title : "上师简介"
+                title : "上师编号"
             }, {
                 field : "masterName",
                 title : "上师名称"
@@ -64,7 +64,7 @@
     }
 </script>
 <table id="dg"></table>
-<form id="form"></form>
+<form id="form" enctype="multipart/form-data" method="post"></form>
 <div id="tb" style="display: none">
     <a class="easyui-linkbutton"
        data-options="iconCls:'icon-edit',plain:true,text:'修改',onClick: function(){
@@ -74,12 +74,22 @@
 					    title:'修改',
 					    width:600,
 					    height:300,
-					    href: '${pageContext.request.contextPath}/form1.jsp',
+					    href: '${pageContext.request.contextPath}/masterform1.jsp',
 					    onLoad:function(){
-							$('#ff').form('load',rowData); //在加载表单时将行数据加载到表单元素中
+							$('#ff4').form('load',rowData); //在加载表单时将行数据加载到表单元素中
 						}
 					});
 
+				}"></a>
+    <a class="easyui-linkbutton"
+       data-options="iconCls:'icon-add',plain:true,text:'新增轮播图',onClick: function(){
+					$('#form').dialog({
+					    title:'新增轮播图',
+					    width:600,
+					    height:300,
+					    href: '${pageContext.request.contextPath}/masterexcelform.jsp',
+					    modal: true
+					});
 				}"></a>
     <a class="easyui-linkbutton"
        data-options="iconCls:'icon-add',plain:true,text:'新增',onClick: function(){

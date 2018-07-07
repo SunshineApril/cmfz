@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -52,7 +53,7 @@ public class MasterController {
 
     @RequestMapping("/addMas")
     @ResponseBody
-    public String addPic(MultipartFile myFile , HttpSession session, String des, String des1) throws IOException {
+    public String addMas(MultipartFile myFile , HttpSession session, String des, String des1) throws IOException {
         Master master=new Master();
         System.out.println("大师简介"+des1);
         System.out.println("大师名"+des);
@@ -74,6 +75,8 @@ public class MasterController {
         System.out.println("mingcheng"+oldName);
         master.setMasterPhoto(oldName);
         //int i = ms.addPic(picture);
+        int i = ms.addMas(master);
+
         myFile.transferTo(new File(upload+oldName));
 //
 //        String suffix = oldName.substring( oldName.lastIndexOf(".") );
@@ -83,9 +86,9 @@ public class MasterController {
         return "i";
     }
 
-    @RequestMapping(value = "/updatePic")
+    @RequestMapping(value = "/updateMas")
     @ResponseBody
-    public int updatePic(String masterId,String masterSummary){
+    public int updateMas(String masterId,String masterSummary){
         Master master=new Master();
         master.setMasterId(masterId);
         master.setMasterSummary(masterSummary);
@@ -104,4 +107,14 @@ public class MasterController {
         return 1;
 
     }
+
+    /**
+    * @Description: 导入excel
+    * @Param:
+    * @return:
+    * @Author: gutian
+    * @Date: 2018.07.07
+    */
+
+
 }

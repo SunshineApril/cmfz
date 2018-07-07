@@ -30,7 +30,7 @@
             onClick : function() {
                 $("#ff4").form("submit",{
                     //?
-                    url : 'updateMas',
+                    url : 'http://localhost:8484/cmfz-admin/master/updateMas',
                     onSubmit : function() {
                         console.log("提交前执行");
                         //验证
@@ -68,11 +68,9 @@
 
 
 		<tr>
-			<td>轮播图描述：</td>
+			<td>大师简介：</td>
 			<td><input id="user" name="masterSummary"></td>
 		</tr>
-
-
 
 
 		<tr>

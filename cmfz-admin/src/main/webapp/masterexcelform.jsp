@@ -5,7 +5,7 @@
   Time: 9:06
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" isELIgnored="false" %>
 <script type="text/javascript">
     // $.extend($.fn.validatebox.defaults.rules, {
     //     equals : {
@@ -49,14 +49,9 @@
             required : true,
             validateOnCreate : false,
             validateOnBlur : true,
-            prompt : "请输入大师名",
+            prompt : "请输入文件名",
         });
-        $("#user1").textbox({
-            required : true,
-            validateOnCreate : false,
-            validateOnBlur : true,
-            prompt : "请输入大师介绍",
-        });
+
 
         $('#fb').filebox({
             buttonText: '选择文件',
@@ -68,7 +63,7 @@
             onClick : function() {
                 $("#form1").form("submit",{
                     //?
-                    url : 'http://localhost:8484/cmfz-admin/master/addMas',
+                    url : '${pageContext.request.contextPath}/excel/import',
                     onSubmit : function() {
                         console.log("提交前执行");
                         //验证
@@ -102,17 +97,11 @@
 
 <form id="form1" method="post" enctype="multipart/form-data">
     <table>
-        <tr>
-            <td>大师名：</td>
-            <td><input id="user" name="des"></td>
-        </tr>
+
+
 
         <tr>
-            <td>大师简介：</td>
-            <td><input id="user1" name="des1"></td>
-        </tr>
-        <tr>
-            <td>大师照片：</td>
+            <td>上传轮播图：</td>
             <td><input id="fb" type="text" name="myFile" style="width:300px"></td>
         </tr>
 

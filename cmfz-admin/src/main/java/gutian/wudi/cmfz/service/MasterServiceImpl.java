@@ -58,9 +58,10 @@ public class MasterServiceImpl implements MasterService {
     @Transactional(propagation=Propagation.REQUIRED)
     @Override
     public int modifyMas(Master m) {
-        int i = masterDao.insertMas(m);
+        int i = masterDao.updateMas(m);
         return i;
     }
+
 
 
 }
