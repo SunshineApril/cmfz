@@ -62,6 +62,19 @@ public class MasterServiceImpl implements MasterService {
         return i;
     }
 
+    @Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+    @Override
+    public List<Master> qurryAllMasterByno() {
+        List<Master> allMasterByno = masterDao.findAllMasterByno();
+
+        return allMasterByno;
+    }
+    @Transactional(propagation=Propagation.REQUIRED)
+    @Override
+    public int addListMaster(List<Master> masters) {
+        int i = masterDao.inseertMaster(masters);
+        return i;
+    }
 
 
 }

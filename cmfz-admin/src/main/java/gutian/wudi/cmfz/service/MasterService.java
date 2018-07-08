@@ -2,6 +2,7 @@ package gutian.wudi.cmfz.service;
 
 import gutian.wudi.cmfz.entity.Master;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,4 +19,8 @@ public interface MasterService {
     int addMas(Master m);
 
     int modifyMas(Master m);
+
+    public List<Master> qurryAllMasterByno();
+
+    int addListMaster(List<Master> masters);
 }

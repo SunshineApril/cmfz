@@ -25,4 +25,7 @@ public interface MasterDao {
 
     int updateMas(Master m);
 
+    public List<Master> findAllMasterByno();
+
+    int inseertMaster(@Param("list") List<Master> masters);
 }

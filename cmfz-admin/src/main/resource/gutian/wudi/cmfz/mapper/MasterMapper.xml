@@ -35,6 +35,16 @@
         =#{masterSummary} where master_id
         =#{masterId}
     </update>
+    <select id="findAllMasterByno" resultMap="MasterResaultMap" >
+        select * from t_master
+    </select>
 
+    <insert id="inseertMaster" >
+        insert into t_master
+        values
+        <foreach collection="list" separator="," item="master">
+            (#{master.masterId},#{master.masterName},#{master.masterPhoto},#{master.masterSummary})
+        </foreach>
+    </insert>
 </mapper>
 

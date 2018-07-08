@@ -82,7 +82,11 @@
 
 				}"></a>
     <a class="easyui-linkbutton"
-       data-options="iconCls:'icon-add',plain:true,text:'新增轮播图',onClick: function(){
+       data-options="iconCls:'icon-edit',plain:true,text:'下载上师',onClick: function(){
+				window.location.href='${pageContext.request.contextPath}/excel/export'
+				}"></a>
+    <a class="easyui-linkbutton"
+       data-options="iconCls:'icon-add',plain:true,text:'批量导入上师',onClick: function(){
 					$('#form').dialog({
 					    title:'新增轮播图',
 					    width:600,

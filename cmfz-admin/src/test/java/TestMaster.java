@@ -3,6 +3,7 @@ import gutian.wudi.cmfz.entity.Master;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,11 +23,18 @@ public class TestMaster {
 //        for (Master master : masters) {
 //            System.out.println(master);
 //        }
-        Master master = new Master("2", "3", "3", "33");
-        int i = managerDao.updateMas(master);
+//        Master master = new Master("2", "3", "3", "33");
+//        int i = managerDao.updateMas(master);
+//
+//        System.out.println(i);
 
-        System.out.println(i);
-
-
+        List<Master> msl=new ArrayList<Master>();
+        Master master1 = new Master("23", "3", "3", "33");
+        Master master2 = new Master("24", "3", "3", "33");
+        Master master3 = new Master("25", "3", "3", "33");
+        msl.add(master1);
+        msl.add(master2);
+        msl.add(master3);
+        managerDao.inseertMaster(msl);
     }
 }

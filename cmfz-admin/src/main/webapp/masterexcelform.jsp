@@ -79,7 +79,8 @@
                         $("form").dialog({
                             closed:true,
                         });
-                        // $('#tt2').datagrid({});
+                        $('#dg').datagrid("reload",{
+                        });
                     }
                 });
             },
@@ -101,7 +102,7 @@
 
 
         <tr>
-            <td>上传轮播图：</td>
+            <td>上师excel：</td>
             <td><input id="fb" type="text" name="myFile" style="width:300px"></td>
         </tr>
 
