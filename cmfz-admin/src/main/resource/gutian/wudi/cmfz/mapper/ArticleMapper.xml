@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="gutian.wudi.cmfz.dao.ArticleDao">
+    <resultMap type="Article" id="ArticleResaultMap">
+        <id property="articleId" column="article_id"/>
+        <result property="articleName" column="article_name"/>
+        <result property="introduction" column="introduction"/>
+        <result property="date" column="date"/>
+        <result property="mainPic" column="main_pic"/>
+        <result property="masterId" column="master_id"/>
+        <result property="articleContext" column="article_context"/>
+
+    </resultMap>
+
+    <!--<select id="findAllMaster" resultMap="MasterResaultMap" >-->
+        <!--select * from t_master limit #{begMes},#{endMes}-->
+    <!--</select>-->
+
+    <!--<select id="getTotalMas" resultType="int">-->
+        <!--select count(*) from t_Master-->
+    <!--</select>-->
+    <!--<select id="selectMas" resultMap="MasterResaultMap" >-->
+        <!--select * from t_master  where ${name} like CONCAT('%',#{value},'%')-->
+        <!--limit #{begin},#{end}-->
+    <!--</select>-->
+    <!--<select id="getTotalMast" resultType="int">-->
+        <!--select count(*) from t_master where ${name} like CONCAT('%',#{value},'%')-->
+    <!--</select>-->
+    <insert id="insertArt">
+        insert into
+        t_article
+        values(#{articleId},#{articleName},#{introduction},#{date},#{mainPic},#{masterId},#{articleContext})
+    </insert>
+
+    <!--<update id="updateMas">-->
+        <!--update-->
+        <!--t_master-->
+        <!--set master_photo =#{masterPhoto},masterr_summary-->
+        <!--=#{masterSummary} where master_id-->
+        <!--=#{masterId}-->
+    <!--</update>-->
+    <!--<select id="findAllMasterByno" resultMap="MasterResaultMap" >-->
+        <!--select * from t_master-->
+    <!--</select>-->
+
+    <!--<insert id="inseertMaster" >-->
+        <!--insert into t_master-->
+        <!--values-->
+        <!--<foreach collection="list" separator="," item="master">-->
+            <!--(#{master.masterId},#{master.masterName},#{master.masterPhoto},#{master.masterSummary})-->
+        <!--</foreach>-->
+    <!--</insert>-->
+</mapper>
+

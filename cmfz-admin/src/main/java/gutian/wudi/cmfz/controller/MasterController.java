@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -108,13 +109,15 @@ public class MasterController {
 
     }
 
-    /**
-    * @Description: 导入excel
-    * @Param:
-    * @return:
-    * @Author: gutian
-    * @Date: 2018.07.07
-    */
+    @RequestMapping(value = "/findMas")
+    @ResponseBody
+    public List<Master> findAMas(){
 
+        List<Master> masters = ms.qurryAllMasterByno();
+        for (Master master : masters) {
+            System.out.println(master);
+        }
+        return masters;
 
+    }
 }
