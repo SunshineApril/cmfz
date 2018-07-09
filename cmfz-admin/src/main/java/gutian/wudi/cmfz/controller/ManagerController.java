@@ -50,6 +50,7 @@ public class ManagerController {
             boolean _login = ms._login(m);
             if(_login){
                 System.out.println("登陆成功");
+                session.setAttribute("mgrName",m.getMgrName());
                 mo.addAttribute("managername", m.getMgrName());
                 String mgrName = m.getMgrName();
                 //String mgrName="曾生";

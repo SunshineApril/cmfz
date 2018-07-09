@@ -31,9 +31,9 @@ public class ArticleController {
     @Autowired
     private ArticleService as;
     @RequestMapping(value = "/insertar")
-    public void createArticle(String p1,String des,String dept){
+    public void createArticle(String p1,String des,String dept,String status){
         Article article = new Article();
-
+        System.out.println("状态"+status);
         //更改get的编码
 //        String username = null;
 //        try {
@@ -49,10 +49,12 @@ public class ArticleController {
         article.setArticleName(des);
         article.setDate(new Date());
         article.setMasterId(dept);
+        article.setMainPic(status);
         article.setArticleContext(p1);
         System.out.println(article);
         int i = as.addArticle(article);
         System.out.println(i);
+
     }
 
     @RequestMapping("/upload")

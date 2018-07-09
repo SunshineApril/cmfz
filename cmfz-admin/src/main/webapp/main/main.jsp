@@ -12,6 +12,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/datagrid-detailview.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/echarts/echarts.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/echarts/china.js"></script>
 <script type="text/javascript">
 	function addTabs(menuName,menuUrl){
 		var b=$("#tt").tabs("exists",menuName);

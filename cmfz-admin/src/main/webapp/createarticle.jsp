@@ -19,7 +19,10 @@
             <td width="100px">文章标题</td>
             <td><input id="user" name="des"></td>
         </tr>
-
+        <tr>
+            <td>状态</td>
+            <td> <input class="easyui-switchbutton" name="status" data-options="onText:'上架',offText:'未上架'"></td>
+        </tr>
         <tr>
             <td width="100px">文章作者</td>
             <td><input id="cc" class="easyui-combobox" name="dept"
@@ -80,7 +83,10 @@
         $('#btn1').linkbutton({
             text: '重置内容',
             onClick: function () {
-                window.location.href = '${pageContext.request.contextPath}/excel/export'
+                $('#form7').form('reset');
+               //括号内有东西是赋值没有事获取
+                //(editor).txt.clear
+                (editor).txt.html("");
             },
         });
     });

@@ -8,18 +8,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.util.Date;
 
 public class Testadmin {
-    @Test
-    public void testlogin(){
-        ClassPathXmlApplicationContext c = new ClassPathXmlApplicationContext("applicationContext.xml");
-//        ManagerDao managerDao = (ManagerDao) c.getBean("managerDao");
-//        Manager zs = managerDao.findManagerByName("zs");
-//        System.out.println(zs);
-        ArticleDao managerDao = (ArticleDao) c.getBean("articleDao");
-        Article article = new Article("1","2","3",new Date(),"5","6","5");
 
 
-        managerDao.insertArt(article);
-
-
+    public static void main(String[] args) {
+        ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("classpath:aspectJ.xml");
+        AspectJService aspectJService = (AspectJService)classPathXmlApplicationContext.getBean("aspectJService");
+        String ss = aspectJService.sayHello("sss");
+        System.out.println(ss);
+        System.out.println("ssss");
     }
 }

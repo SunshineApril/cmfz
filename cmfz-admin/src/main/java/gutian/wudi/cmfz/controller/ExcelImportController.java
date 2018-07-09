@@ -38,7 +38,7 @@ public class ExcelImportController {
     private MasterService ms;
     @RequestMapping(value = "/import")
     @ResponseBody
-    public void excelImport(MultipartFile myFile ) {
+    public int excelImport(MultipartFile myFile ) {
         System.out.println("进入excel");
         ImportParams importParams = new ImportParams();
         // 数据处理
@@ -74,10 +74,15 @@ public class ExcelImportController {
                 log.info("失败列表信息:" + user.getMasterName());
             }
         } catch (IOException e) {
+
             log.error(e.getMessage(), e);
+            return 0;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
+            return 0;
+
         }
+        return 1;
     }
     @RequestMapping(value = "/export")
     public void exportExcel(HttpServletResponse response) throws IOException {

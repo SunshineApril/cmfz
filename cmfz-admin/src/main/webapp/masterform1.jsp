@@ -38,7 +38,7 @@
                     },
                     success : function(data) {
                         if(data==1){
-                            $.messager.alert("提示","添加成功,请刷新页面！");
+                            $.messager.alert("提示","添加修改,请刷新页面！");
 
                         } else {
                             $.messager.alert("提示","添加失败！");
@@ -46,7 +46,8 @@
                         $("form").dialog({
                             closed:true,
                         });
-                        // $('#tt2').datagrid({});
+                        $('#dg').datagrid("reload",{
+                        });
                     }
                 });
             },

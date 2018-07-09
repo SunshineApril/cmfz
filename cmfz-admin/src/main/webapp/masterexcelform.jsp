@@ -76,9 +76,9 @@
                         } else {
                             $.messager.alert("提示","添加失败！");
                         }
-                        $("form").dialog({
-                            closed:true,
-                        });
+                        // $("form").dialog({
+                        //     closed:true,
+                        // });
                         $('#dg').datagrid("reload",{
                         });
                     }
