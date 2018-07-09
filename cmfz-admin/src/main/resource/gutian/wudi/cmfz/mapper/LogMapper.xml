@@ -12,13 +12,13 @@
 
     </resultMap>
 
-    <!--<select id="findAllMaster" resultMap="MasterResaultMap" >-->
-        <!--select * from t_master limit #{begMes},#{endMes}-->
-    <!--</select>-->
+    <select id="findAllLog" resultMap="LogResaultMap" >
+        select * from t_log limit #{begMes},#{endMes}
+    </select>
 
-    <!--<select id="getTotalMas" resultType="int">-->
-        <!--select count(*) from t_Master-->
-    <!--</select>-->
+    <select id="getTotalLo" resultType="int">
+        select count(*) from t_log
+    </select>
     <!--<select id="selectMas" resultMap="MasterResaultMap" >-->
         <!--select * from t_master  where ${name} like CONCAT('%',#{value},'%')-->
         <!--limit #{begin},#{end}-->

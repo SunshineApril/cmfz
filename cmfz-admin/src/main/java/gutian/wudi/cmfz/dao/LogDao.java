@@ -2,6 +2,10 @@ package gutian.wudi.cmfz.dao;
 
 import gutian.wudi.cmfz.entity.Log;
 
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
 /**
  * @program: cmfz
  * @description: 记录日志log
@@ -10,4 +14,8 @@ import gutian.wudi.cmfz.entity.Log;
  **/
 public interface LogDao {
     int insertLog(Log log);
+
+    public List<Log> findAllLog(@Param("begMes") int begMes, @Param("endMes") int endMes);
+
+    int getTotalLo();
 }
