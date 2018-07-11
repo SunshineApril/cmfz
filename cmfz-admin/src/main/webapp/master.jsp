@@ -23,6 +23,7 @@
             singleSelect : true,
             pageSize : 5,
             pageList : [ 5, 10, 15, 20 ],
+            //id不可重复因为重复会导致错误
             toolbar : "#tb",
         });
 

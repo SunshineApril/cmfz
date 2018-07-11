@@ -75,9 +75,10 @@
                     param.p1 = (editor).txt.html();
                 }
             });
-
-
-
+                $('#form7').form('reset');
+                //括号内有东西是赋值没有事获取
+                //(editor).txt.clear
+                (editor).txt.html("");
             },
         });
         $('#btn1').linkbutton({

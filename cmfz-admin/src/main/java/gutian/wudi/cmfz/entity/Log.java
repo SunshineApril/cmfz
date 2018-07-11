@@ -1,8 +1,5 @@
 package gutian.wudi.cmfz.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
 
 /**
@@ -14,8 +11,6 @@ import java.util.Date;
 public class Log {
     private String logId;
     private String logUser;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    @JSONField(format="yyyy-MM-dd")
     private Date logTime;
     private String logResource;
     private String logAction;
@@ -33,6 +28,19 @@ public class Log {
     }
 
     public Log() {
+    }
+
+    @Override
+    public String toString() {
+        return "Log{" +
+                "logId='" + logId + '\'' +
+                ", logUser='" + logUser + '\'' +
+                ", logTime=" + logTime +
+                ", logResource='" + logResource + '\'' +
+                ", logAction='" + logAction + '\'' +
+                ", logMessage='" + logMessage + '\'' +
+                ", logResult='" + logResult + '\'' +
+                '}';
     }
 
     public String getLogId() {
@@ -89,19 +97,6 @@ public class Log {
 
     public void setLogResult(String logResult) {
         this.logResult = logResult;
-    }
-
-    @Override
-    public String toString() {
-        return "Log{" +
-                "logId='" + logId + '\'' +
-                ", logUser='" + logUser + '\'' +
-                ", logTime=" + logTime +
-                ", logResource='" + logResource + '\'' +
-                ", logAction='" + logAction + '\'' +
-                ", logMessage='" + logMessage + '\'' +
-                ", logResult='" + logResult + '\'' +
-                '}';
     }
 }
 

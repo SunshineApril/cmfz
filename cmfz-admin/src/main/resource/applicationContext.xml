@@ -50,4 +50,6 @@
 
     <!--注册额外功能类-->
     <bean id="myAdvice" class="gutian.wudi.cmfz.utils.MyAdvice"></bean>
+
+    <import resource="applicationContext-shiro.xml"></import>
 </beans>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--<bean class="com.alibaba.druid.pool.DruidDataSource" id="ds">-->
+    <!--<property name="driverClassName" value="com.mysql.jdbc.Driver"/>-->
+    <!--<property name="url" value="jdbc:mysql://localhost:3306/gtx?characterEncoding=UTF-8" />-->
+    <!--<property name="username" value="root"/>-->
+    <!--<property name="password" value="root"/>-->
+    <!--</bean>-->
+
+    <!--<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">-->
+
+    <!--<property name="dataSource" ref="ds"/>-->
+    <!--<property name="typeAliasesPackage" value="gutian.wudi.cmfz.entity"/>-->
+    <!--<property name="mapperLocations">-->
+    <!--<list>-->
+    <!--<value>classpath:gutian/wudi/cmfz/mapper/*Mapper.xml</value>-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--</bean>-->
+
+    <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+    <!--<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>-->
+    <!--<property name="basePackage" value="gutian.wudi.cmfz.dao"/>-->
+    <!--</bean>-->
+
+    <!--<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">-->
+    <!--<property name="dataSource" ref="ds"/>-->
+    <!--</bean>-->
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
+    <!--&lt;!&ndash;注解扫描仪&ndash;&gt;-->
+
+    <!--<context:component-scan base-package="gutian.wudi.cmfz"/>-->
+
+    <!--&lt;!&ndash;表示使用aspectJ风格的注解&ndash;&gt;-->
+    <!--<aop:aspectj-autoproxy></aop:aspectj-autoproxy>-->
+
+
+    <!--&lt;!&ndash;注册额外功能类&ndash;&gt;-->
+    <!--<bean id="myAdvice" class="gutian.wudi.cmfz.utils.MyAdvice"></bean>-->
+
+    <!--shiro过滤工厂对象    负责权限校验   请求处理Bean-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"></property>
+        <!--登录页面url-->
+        <property name="loginUrl" value="/login.jsp"></property>
+        <!--<property name="successUrl" value="/error.jsp"></property>-->
+        <!--
+            定义过滤链拦截规则的属性
+        -->
+        <property name="filterChainDefinitions">
+            <!--anon没有权限谁都可以登录-->
+            <value>
+                <!--拦截规则   url=过滤器   请求和响应的预处理   Filter ：3 个方法 初始化 销毁 doFilter  chain。doFilter（request，response，chain）
+                    anon org.apache.shiro.web.filter.authc.AnonymousFilter   匿名过滤器 认证不认证都可以访问资源（一般适用静态资源和非核心的url的过滤）
+                    authcBasic org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter  基本http认证过滤器
+                    更多详情请见  shiro。doc文档
+                    /**=autho除了明确表明的都需要登陆之后才可以访问
+                    authc不认记住我  必须使用user  而且必须使用cookie（保证cookie存在）的情况下才可以使用记住我记住我只是可以记住复杂密码
+                -->
+
+                /main/main.jsp=user
+            </value>
+        </property>
+    </bean>
+    <!--初始化web环境下的安全管理器-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!--将自己的数据源注入到安全管理器之中-->
+        <property name="realms">
+            <list>
+                <ref bean="myRealm"></ref>
+            </list>
+        </property>
+        <!--记住我管理器-->
+        <property name="rememberMeManager" ref="rememberMeManager"></property>
+    </bean>
+    <!--记住我管理器-->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cookie" ref="simpleCookie"></property>
+    </bean>
+    <!--记住我cookie-->
+    <bean id="simpleCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <property name="name" value="Rm"></property>
+        <property name="maxAge" value="604800"></property>
+        <!--作用范围-->
+        <property name="path" value="/"></property>
+    </bean>
+    <!--声明ini文件-->
+    <bean id="myRealm" class="gutian.wudi.cmfz.utils.MyRealm">
+        <property name="credentialsMatcher" ref="credentialsMatcher"></property>
+    </bean>
+    <!--复杂的凭证匹配器对象-->
+    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <property name="hashAlgorithmName" value="md5"></property>
+        <!--散列次数-->
+        <property name="hashIterations" value="512"></property>
+    </bean>
+</beans>

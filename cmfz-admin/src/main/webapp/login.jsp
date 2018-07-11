@@ -37,6 +37,10 @@
             var strnew =decodeURI(str,"utf-8");
 
             document.getElementById("nam").value=strnew;
+            var sta = $("#name").val();
+            if(sta != ""){
+                $("#isRememberUsername").attr("checked", "checked");
+            }
 
         }
 	</script>

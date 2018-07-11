@@ -35,7 +35,7 @@
 			success:function (res) {
 				console.log(res)
 				//遍历响应集合
-				//res遍历的集合 index当前遍历的集合 遍历的临时变量
+				//res遍历的集合 index当前遍历的集合 obj遍历的临时变量
 				 $.each(res,function (index,obj) {
 				 	console.log(obj);
 

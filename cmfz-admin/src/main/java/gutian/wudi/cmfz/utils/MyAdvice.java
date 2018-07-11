@@ -56,7 +56,7 @@ public class MyAdvice {
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
 
         Log log = new Log();
-
+        //获取session
         HttpServletRequest request =((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
         HttpSession session =request.getSession();
@@ -70,14 +70,22 @@ public class MyAdvice {
         //参数数组
         Object[] args = pjp.getArgs();
 
-        String s2 = args[0].getClass().toString();
-        log.setLogResource(s2);
+
         //获取签名之后可以获取方法的签名
         MethodSignature signature = (MethodSignature)pjp.getSignature();
         //获取方法
         Method method = signature.getMethod();
         //获取方法名称
         String name = method.getName();
+        //获取原信息利于Article的改动就应该获取Article
+        //        String s2 = args[0].getClass().toString();
+        Class<?> declaringClass = method.getDeclaringClass();
+        String s2 = String.valueOf(declaringClass);
+        int i = s2.lastIndexOf('.');
+        String substring = s2.substring(i);
+        String service = substring.replace("Service", "");
+        log.setLogResource(service);
+
         if(name.contains("add")){
             log.setLogAction("新增");
         }else{

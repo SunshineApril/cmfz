@@ -8,6 +8,10 @@ import gutian.wudi.cmfz.service.ManagerService;
 import gutian.wudi.cmfz.service.MenuService;
 import gutian.wudi.cmfz.service.PictureService;
 import gutian.wudi.cmfz.utils.NewValidateCodeUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,32 +44,44 @@ public class ManagerController {
     @Autowired
     private PictureService ps;
     @RequestMapping("/loginAction_Manager")
-    public String loginAction(Manager m, Model mo, String vcode, HttpSession session,HttpServletResponse response,HttpServletRequest request){
+    public String loginAction(Manager m, Model mo, String vcode,boolean remember, HttpSession session,HttpServletResponse response,HttpServletRequest request){
         String code = (String)session.getAttribute("vcode");
         System.out.println(code);
         System.out.println("vcode"+vcode);
         if(vcode.equalsIgnoreCase(code)){
             System.out.println("kaishiyanzhengdenglu");
             System.out.println(m);
-            boolean _login = ms._login(m);
-            if(_login){
-                System.out.println("登陆成功");
-                session.setAttribute("mgrName",m.getMgrName());
-                mo.addAttribute("managername", m.getMgrName());
-                String mgrName = m.getMgrName();
-                //String mgrName="曾生";
-                String encode=null;
-                try {
-                   encode = URLEncoder.encode(mgrName, "utf-8");
-                    System.out.println(mgrName);
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                Cookie c1 = new Cookie("cookieName",encode);
-                c1.setPath(request.getContextPath());
-                response.addCookie(c1);
+            //web环境中springxml中bean自动初始化不用再此配置
+            Subject subject = SecurityUtils.getSubject();
+            try {
+                //shiro会根据boolean值决定是否执行记住我这个功能
+                subject.login(new UsernamePasswordToken(m.getMgrName(),m.getMgrPwd(),remember));
                 return "main/main";
+            } catch (AuthenticationException e) {
+                e.printStackTrace();
+                return "login";
             }
+//            boolean _login = ms._login(m);
+//            if(_login){
+//                System.out.println("登陆成功");
+//                session.setAttribute("mgrName",m.getMgrName());
+//                mo.addAttribute("managername", m.getMgrName());
+//                String mgrName = m.getMgrName();
+//                //String mgrName="曾生";
+//                String encode=null;
+//                if(remember){
+//                    try {
+//                        encode = URLEncoder.encode(mgrName, "utf-8");
+//                        System.out.println(mgrName);
+//                    } catch (UnsupportedEncodingException e) {
+//                        e.printStackTrace();
+//                    }
+//                    Cookie c1 = new Cookie("cookieName",encode);
+//                    c1.setPath(request.getContextPath());
+//                    response.addCookie(c1);
+//                }
+//                return "main/main";
+//            }
         }
         return null;
     }
