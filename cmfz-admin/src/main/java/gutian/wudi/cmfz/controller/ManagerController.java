@@ -56,6 +56,8 @@ public class ManagerController {
             try {
                 //shiro会根据boolean值决定是否执行记住我这个功能
                 subject.login(new UsernamePasswordToken(m.getMgrName(),m.getMgrPwd(),remember));
+                System.out.println(subject.hasRole("admin")?"有root角色":"没有角色");
+                System.out.println(subject.isPermitted("master:query")?"拥有上师查询权限":"没有上师查询权限");
                 return "main/main";
             } catch (AuthenticationException e) {
                 e.printStackTrace();

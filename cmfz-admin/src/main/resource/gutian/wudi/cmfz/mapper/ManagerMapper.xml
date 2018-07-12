@@ -15,4 +15,46 @@
     <select id="findManagerByName" resultMap="ManagerResaultMap" >
     select * from t_manager where mgr_name=#{0}
     </select>
+    
+    <select id="findRolesByUsername" resultType="SysRole">
+        SELECT
+        sr.role_id roleId,
+        sr.role_name roleName,
+        sr.role_tag roleTag
+        FROM sys_role sr
+        WHERE
+        role_id in
+        (SELECT ur.role_id
+            from sys_user_role ur
+            WHERE ur.user_id=
+            (SELECT mgr_id
+                FROM t_manager m1
+                where
+                m1.mgr_name=#{username}
+            )
+        )
+    </select>
+
+    <select id="findPermisByUsername" resultType="SysPermis">
+        SELECT
+        resource_id resourceId,
+        resource_tag resourceTag,
+        resource_url resourceUrl,
+        permis_tag permisTag,
+        resource_name resourceName
+        FROM
+            sys_permis
+        WHERE
+            resource_id in
+                (SELECT permis_id
+                from
+                    sys_role_permis
+                WHERE
+                    role_id in (SELECT
+                                    ur.role_id
+                                from
+                                    sys_user_role ur
+                                WHERE ur.user_id=(SELECT mgr_id FROM t_manager m1 where m1.mgr_name=#{username})
+        ))
+    </select>
 </mapper>

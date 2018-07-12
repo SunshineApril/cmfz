@@ -2,6 +2,9 @@ package gutian.wudi.cmfz.utils;
 
 import gutian.wudi.cmfz.dao.ManagerDao;
 import gutian.wudi.cmfz.entity.Manager;
+import gutian.wudi.cmfz.entity.SysPermis;
+import gutian.wudi.cmfz.entity.SysRole;
+import gutian.wudi.cmfz.service.ManagerService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -10,6 +13,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -28,7 +32,10 @@ public class MyRealm extends AuthorizingRealm {
     */
     @Autowired
     private ManagerDao md;
+    @Autowired
+    private ManagerService ms;
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        System.out.println("+++++++++++++++++++++++++++++++++++++");
         //1、获取用户信息 主身份信息就是用户名
         String username = (String) principalCollection.getPrimaryPrincipal();
         //模拟数据库查到zs
@@ -42,12 +49,25 @@ public class MyRealm extends AuthorizingRealm {
             //模拟查询到数据库对象
             SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
             //角色
-            info.addRole("root");
-            info.addRole("admin");
-            info.addRole("user");
-            info.addStringPermission("user:add");
-            info.addStringPermission("user:query");
-            info.addStringPermission("user:remove");
+            List<SysRole> sysRoles = ms.queryRolesByUsername(username);
+            for (SysRole role : sysRoles) {
+                String roleTag = role.getRoleTag();
+                System.out.println(roleTag);
+                info.addRole(roleTag);
+            }
+            List<SysPermis> sysPermis = ms.queryPermisByUsername(username);
+            for (SysPermis sysPermi : sysPermis) {
+                String permisTag = sysPermi.getPermisTag();
+                System.out.println(permisTag);
+                info.addStringPermission(permisTag);
+
+            }
+//            info.addRole("root");
+//            info.addRole("admin");
+////            info.addRole("user");
+//            info.addStringPermission("user:add");
+//            info.addStringPermission("user:query");
+//            info.addStringPermission("user:remove");
             //info.addRole("root");
             //这里与前台提交的进行比对
             //权限

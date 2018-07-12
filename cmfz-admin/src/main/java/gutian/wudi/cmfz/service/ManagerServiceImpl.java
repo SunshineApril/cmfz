@@ -3,11 +3,15 @@ package gutian.wudi.cmfz.service;
 
 import gutian.wudi.cmfz.dao.ManagerDao;
 import gutian.wudi.cmfz.entity.Manager;
+import gutian.wudi.cmfz.entity.SysPermis;
+import gutian.wudi.cmfz.entity.SysRole;
 import gutian.wudi.cmfz.utils.EncryptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -39,4 +43,17 @@ public class ManagerServiceImpl implements ManagerService{
         }
         return false;
     }
+
+    @Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+    @Override
+    public List<SysRole> queryRolesByUsername(String username) {
+        return md.findRolesByUsername(username);
+    }
+
+    @Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+    @Override
+    public List<SysPermis> queryPermisByUsername(String username) {
+        return md.findPermisByUsername(username);
+    }
+
 }
