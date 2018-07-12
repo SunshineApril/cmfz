@@ -87,7 +87,7 @@
         <property name="rememberMeManager" ref="rememberMeManager"></property>
 
         <!--缓存管理器-->
-        <!--<property name="cacheManager" ref="ehCacheManager"></property>-->
+        <property name="cacheManager" ref="ehCacheManager"></property>
     </bean>
 
     <!--缓存框架  一般适用于本地缓存  可以实现shirocahe，因为实现了shiro接口-->
